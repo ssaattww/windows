@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>test</title>
+</head>
+<body>
+
+<canvas id="CanvasId" width="1024" height="900" style="background-color:black" ></canvas>
+<script>
+	//以下の2行はおまじない
+    //85文字まで入る
+	var cvs = document.getElementById("CanvasId");
+    var ctx = cvs.getContext("2d");
+
+	//大きさとフォントを指定
+	ctx.beginPath();
+
+    var p = 0;
+    //___________________
+    var tate = 0;
+	var yoko = 0;
+    var r = new Array();
+    var r = [];
+    var a = new Array(1);
+    var a = [];
+    var result = ""
+    //___________________
+    var curx, cury;
+    var aaa = 18;
+    var cut =0;
+    
+	//色をHTMLカラーで指定
+        function dragon(dx,dy,sign,ord){
+        if(ord<1){
+            curx += dx;
+            cury += dy;
+            ctx.lineTo(curx,cury);
+        }
+        else{
+            dragon((dx-sign*dy)/2,(dy+sign*dx)/2, 1,ord-1);
+            dragon((dx+sign*dy)/2,(dy-sign*dx)/2,-1,ord-1);
+        }
+    }
+    function draw(){
+        ctx.clearRect(0,0,cvs.width,cvs.height);
+        ctx.beginPath();
+        ctx.strokeStyle = "rgb(0, 211, 81)";          
+        //ctx.clearRect(0,0,cvs.width,cvs.height);
+        ctx.moveTo(curx = 512,cury = 512);
+        dragon(-500,0,1,aaa);
+        ctx.stroke();
+        if(cut==0){
+            if(aaa>2){
+                aaa = aaa-1;
+            }
+            else{
+                cut = 1;
+            }
+        }
+        else if(cut ==1){
+            if(aaa<19){
+                aaa = aaa+1;
+            }
+            else{
+                cut = 0;
+            }
+        }
+        
+    }
+
+    function matrix(){
+        ctx.font = "24px 'ＭＳ Ｐゴシック'";
+        var l = 1;//一度に作る文字列の長さ
+        var c = "qwertyuiopasdfghjklzxcvbnm";//一気に宣言することができる
+        var cl = c.length;
+        ctx.clearRect(0,0+tate*32,cvs.width,cvs.height);
+        ctx.beginPath();
+        a[yoko] = c[Math.floor(Math.random()*cl)];
+        if(yoko == 0){
+            r[0] = a[0];
+        }
+        else if(yoko>0){
+            r.push(a[yoko]);
+        }
+        result = r.join("");
+        ctx.fillText(result,0,30+tate*30);
+        ctx.fillStyle = "rgb(0, 211, 81)";
+        yoko = yoko + 1;
+        document.getElementById("result1").innerHTML = yoko;
+        document.getElementById("result2").innerHTML = tate;
+        document.getElementById("result3").innerHTML = yoko*(tate+1);
+        if(yoko ==90){
+            for(var i=0;i<90;i++){
+                a.shift();
+                r.shift();
+            }
+            yoko = 0;
+            tate = tate +1;
+        }
+        if(tate == 20){
+            timer2 = clearInterval(timer2);
+            tate = 0;
+            yoko = 0;
+            for(var i=0;i<90;i++){
+                a.shift();
+                r.shift();            
+            }       
+        }
+    }
+    
+    function kesu(){
+        ctx.clearRect(0,0,cvs.width,cvs.height);
+        tate = 0;
+        yoko = 0;
+        for(var i=0;i<90;i++){
+            a.shift();
+            r.shift();            
+        }               
+    }
+
+    function redraw(){
+        var x,y,t,deg =Math.PI/180;
+        
+        ctx.clearRect(0,0,cvs.width,cvs.height);
+        ctx.beginPath();
+        for(t=0; t < Math.PI*2; t+=deg){
+            x = 300*(Math.sin(2*t + p) + 1);
+            y = 300*(Math.sin(3*t) + 1);
+            ctx.lineTo(x,y);            
+        }
+        ctx.stroke();
+        ctx.strokeStyle = "rgb(0, 211, 81)";        
+        p +=deg;
+    }
+  
+    function sinstart(){
+        timer1 = setInterval("redraw()",100);
+
+    }
+    function mozistart(){
+        timer2 = setInterval("matrix()",10);
+    }
+
+    function draw2(){
+        timer3 = setInterval("draw()",100);
+    }
+    
+    function sinstop(){
+        timer1 = clearInterval(timer1);
+        timer2 = clearInterval(timer2);
+        timer3 = clearInterval(timer3);
+    }    
+</script>
+    <br>
+    <button type="action" onclick="sinstart()">リサージュスタート</button>
+    <button type="action" onclick="mozistart()">文字スタート</button>    
+    <button type="action" onclick="matrix()">文字一個</button>
+    <button type="action" onclick="draw2()">ドラゴンスタート</button>
+    <button type="action" onclick="kesu()">消す</button>
+    <button type="action" onclick="sinstop()">ストップ</button>
+    <br>
+    何文字横に並んでいるか：<pre id="result1"></pre>
+    何段目か：<pre id="result2"></pre>
+    文字数：<pre id="result3"></pre>
+</body>
+</html>
