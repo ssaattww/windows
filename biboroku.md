@@ -8,3 +8,6 @@ C:\Program Files\Git\cmd;
 両方追加されているか確認する
 
 http://blog.codebook-10000.com/entry/20140611/1402486954
+
+import from 違い
+https://qiita.com/suzuki-hoge/items/f951d56290617df4279e
