@@ -13,4 +13,5 @@ import from 違い
 https://qiita.com/suzuki-hoge/items/f951d56290617df4279e
 
 https://qiita.com/matsujirushi/items/c93c07ecc913c20c50e4
+https://os.mbed.com/users/okano/notebook/mbed_no_koneta/
 mbedのピンsdaとか調べなくても幸せ
