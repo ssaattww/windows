@@ -16,5 +16,7 @@ https://qiita.com/matsujirushi/items/c93c07ecc913c20c50e4
 https://os.mbed.com/users/okano/notebook/mbed_no_koneta/
 mbedのピンsdaとか調べなくても幸せ
 
+mbed putcはunsigned char を認識しない
+
 http://program.station.ez-net.jp/special/handbook/cpp/class/super.asp
 子クラスで基底クラスの関数を使う
